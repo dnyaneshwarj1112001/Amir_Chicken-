@@ -8,8 +8,7 @@ import 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepository _authRepository;
 
-  AuthCubit()
-      : _authRepository = AuthRepository(
+  AuthCubit(): _authRepository = AuthRepository(
           ApiClient(
             Dio(),
             baseUrl: 'https://meatzo.com/api',

@@ -5,7 +5,7 @@ part 'auth_response_model.g.dart';
 @JsonSerializable()
 class AuthResponseModel {
   final String? message;
-  final String? otp;
+  final int? otp;
   final bool hasError;
 
   AuthResponseModel({
@@ -13,6 +13,7 @@ class AuthResponseModel {
     this.otp,
     required this.hasError,
   });
+ 
 
   factory AuthResponseModel.fromJson(Map<String, dynamic> json) =>
       _$AuthResponseModelFromJson(json);

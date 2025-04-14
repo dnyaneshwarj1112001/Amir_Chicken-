@@ -9,8 +9,7 @@ part of 'auth_response_model.dart';
 AuthResponseModel _$AuthResponseModelFromJson(Map<String, dynamic> json) =>
     AuthResponseModel(
       message: json['message'] as String?,
-      // otp: json['otp'] as String?,
-      otp: json['otp']?.toString(),
+      otp: json['otp'],
       hasError: json['hasError'] as bool,
     );
 

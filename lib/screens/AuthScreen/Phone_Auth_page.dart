@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:amir_chikan/cubit/auth_cubit.dart';
 import 'package:amir_chikan/cubit/auth_state.dart';
 import 'package:amir_chikan/presentation/Global_widget/custome_Next_button.dart';
-import 'package:amir_chikan/screens/Screen/AuthScreen/Otp_verification.dart';
+import 'package:amir_chikan/features/auth/presentation/AuthScreen/Otp_verification_page.dart';
 
 class PhoneAuthScreen extends StatefulWidget {
   static const String id = 'PhoneAuthScreen';
@@ -39,9 +39,9 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
                 MaterialPageRoute(
                   builder: (context) => OtpVerificationScreen(
                     phoneNumber: phoneController.text.trim(),
-                    otp: state.response.otp ?? '',
+                    otp: state.response.otp.toString(),
                   ),
-                ),
+                ), 
               );
             } else if (state is AuthFailure) {
               ScaffoldMessenger.of(context).showSnackBar(

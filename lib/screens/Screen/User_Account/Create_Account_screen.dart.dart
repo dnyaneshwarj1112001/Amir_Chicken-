@@ -1,6 +1,6 @@
 import 'package:amir_chikan/presentation/Global_widget/custome_Next_button.dart';
 import 'package:amir_chikan/presentation/Global_widget/gap.dart';
-import 'package:amir_chikan/screens/AuthScreen/PhoneAuth.dart';
+import 'package:amir_chikan/screens/AuthScreen/Phone_Auth_page.dart';
 
 import 'package:amir_chikan/screens/Screen/User_Account/custometextfield/CustomTextFormField.dart';
 import 'package:amir_chikan/screens/Screen/User_Account/user_create_bloc.dart';
