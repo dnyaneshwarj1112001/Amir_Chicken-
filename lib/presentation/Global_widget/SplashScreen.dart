@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:amir_chikan/presentation/Global_widget/gap.dart';
 import 'package:amir_chikan/presentation/Global_widget/Onbording%20Screen/preScreens.dart';
+import 'package:amir_chikan/screens/Screen/HomeScrens/HomePageScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,10 +21,26 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  checkloginstatus() async {
+    Timer(const Duration(seconds: 3), () async {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString("auth_token");
+      print(token);
+      if (token != null && token.isNotEmpty) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePageScreen()));
+      } else {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => OnbordingScreen()));
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    navigatePage();
+    // navigatePage();
+    checkloginstatus();
   }
 
   @override

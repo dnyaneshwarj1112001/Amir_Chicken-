@@ -1,7 +1,7 @@
 import 'package:amir_chikan/presentation/Global_widget/Appcolor.dart';
 import 'package:amir_chikan/presentation/Global_widget/apptext.dart';
 import 'package:amir_chikan/presentation/Global_widget/gap.dart';
-import 'package:amir_chikan/screens/Profile/editprofile_Screen.dart';
+import 'package:amir_chikan/screens/Order/Profile/editprofile_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:amir_chikan/presentation/Global_widget/app_routes.dart';
 
@@ -60,12 +60,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              _buildProfileOption(Icons.person, "Edit Profile", () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => EditprofileScreen()));
-              }),
+              // _buildProfileOption(Icons.person, "Edit Profile", () {
+              //   Navigator.push(
+              
+              //       context,
+              //       MaterialPageRoute(
+              //           builder: (context) => EditprofileScreen()));
+              // }),
               _buildProfileOption(Icons.settings, "Settings", () {}),
               _buildProfileOption(Icons.lock, "Privacy Policy", () {}),
               _buildProfileOption(

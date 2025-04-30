@@ -31,11 +31,11 @@ class _ProductDetailListState extends State<ProductDetailList> {
         elevation: 4,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(5.0),
         child: GridView.builder(
           physics: const BouncingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
+            crossAxisCount: 2,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
             childAspectRatio: 0.8, // Compact & aligned layout

@@ -11,6 +11,7 @@ class AuthRepository {
     return apiClient.login({"mobile_number": phoneNumber});
   }
    Future <VerifyOtpResponse>VerifyOtp(String  phoneNumber,String otp){
+   
   return apiClient.verifyOtp({"mobile_number": phoneNumber,"otp":otp});
   }
 }

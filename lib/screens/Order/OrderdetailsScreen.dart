@@ -1,5 +1,5 @@
 import 'package:amir_chikan/presentation/Global_widget/Appcolor.dart';
-import 'package:amir_chikan/presentation/Global_widget/custome_Next_button.dart';
+import 'package:amir_chikan/screens/AuthScreen/custome_Next_button.dart';
 import 'package:amir_chikan/presentation/Global_widget/gap.dart';
 import 'package:amir_chikan/screens/Order/orderrecipt.dart';
 import 'package:flutter/material.dart';

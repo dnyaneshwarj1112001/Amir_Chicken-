@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:amir_chikan/cubit/auth_cubit.dart';
 import 'package:amir_chikan/cubit/auth_state.dart';
-import 'package:amir_chikan/presentation/Global_widget/custome_Next_button.dart';
+import 'package:amir_chikan/screens/AuthScreen/custome_Next_button.dart';
 import 'package:amir_chikan/features/auth/presentation/AuthScreen/Otp_verification_page.dart';
 
 class PhoneAuthScreen extends StatefulWidget {

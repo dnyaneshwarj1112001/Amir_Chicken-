@@ -1,7 +1,14 @@
+import 'package:amir_chikan/core/network/api_client.dart';
+import 'package:amir_chikan/core/network/dio_client.dart';
+import 'package:amir_chikan/data/repositories/auth_repository.dart';
+import 'package:amir_chikan/features/auth/logic/otp_verification_cubit.dart';
+import 'package:amir_chikan/features/auth/logic/otp_verification_state.dart';
 import 'package:amir_chikan/screens/Screen/HomeScrens/HomePageScreen.dart';
 import 'package:amir_chikan/screens/Screen/HomeScrens/homepagedeletedscreen.dart';
 import 'package:flutter/material.dart';
-import 'package:amir_chikan/presentation/Global_widget/custome_Next_button.dart';
+import 'package:amir_chikan/screens/AuthScreen/custome_Next_button.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   final String phoneNumber;
@@ -18,7 +25,6 @@ class OtpVerificationScreen extends StatefulWidget {
 }
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
-  bool isLoading = true; // Loading state for OTP autofill
   final List<TextEditingController> otpControllers = List.generate(
     6,
     (index) => TextEditingController(),
@@ -33,9 +39,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     super.initState();
 
     Future.delayed(const Duration(milliseconds: 400), () {
-      setState(() {
-
-      });
+      setState(() {});
     });
 
     // Autofill OTP from server (optional)
@@ -57,109 +61,130 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     super.dispose();
   }
 
-  void _verifyOtp() {
-    
-    if (otp.length != 6 || otp != widget.otp) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid OTP!')),
-      );
-      return;
-    }
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Phone number verified!'),
-      ),
-    );
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const HomePageScreen()));
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Verify OTP'),
-      ),
-      body: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+    return BlocProvider<Otpverificationcubit>(
+      create: (_) =>
+          Otpverificationcubit(AuthRepository(ApiClient(DioClient.dio))),
+      child: BlocConsumer<Otpverificationcubit, OtpVerificationState>(
+          listener: (context, state) {
+        if (state is OtpVerificationSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Otp verified verified!'),
+            ),
+          );
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomePageScreen()));
+        } else if (state is OtpVerificationFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.error),
+              // ignore: avoid_print
+            ),
+          );
+          print(
+              '${state.error.toString()}---------------------------------------------------dsss----------------------------->>>>');
+        }
+      }, builder: (context, state) {
+        final cubit = context.read<Otpverificationcubit>();
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Verify OTP'),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Enter the OTP sent to ${widget.phoneNumber}',
+                  style: const TextStyle(fontSize: 18),
+                  textAlign: TextAlign.center,
+                ),
+                if (widget.otp != null) ...[
+                  const SizedBox(height: 10),
                   Text(
-                    'Enter the OTP sent to ${widget.phoneNumber}',
-                    style: const TextStyle(fontSize: 18),
+                    'Auto OTP: ${widget.otp}',
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ],
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: List.generate(6, (index) {
+                    return SizedBox(
+                      width: 40,
+                      child: TextField(
+                        controller: otpControllers[index],
+                        focusNode: focusNodes[index],
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        maxLength: 1,
+                        decoration: const InputDecoration(
+                          counterText: '',
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (value) {
+                          if (value.isNotEmpty && index < 5) {
+                            FocusScope.of(context)
+                                .requestFocus(focusNodes[index + 1]);
+                          } else if (value.isEmpty && index > 0) {
+                            FocusScope.of(context)
+                                .requestFocus(focusNodes[index - 1]);
+                          }
+                          print(
+                              "${otpControllers.map((controller) => controller.text).join()} -----------------------------------------------------------------------d;askdjfhlisudfh>>>>>>>>>>>");
+                        },
+                      ),
+                    );
+                  }),
+                ),
+                const SizedBox(height: 20),
+                if (state is OtpVerificationLoading)
+                  const CircularProgressIndicator()
+                else
+                  const SizedBox(height: 20),
+                CustomButton(
+                  onPressed: () {
+                    cubit.verifyOtp(
+                      widget.phoneNumber,
+                      otp,
+                    );
+                  },
+                  text: 'Verify OTP',
+                ),
+                const SizedBox(height: 30),
+                const Padding(
+                  padding: EdgeInsets.only(left: 40),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Didn’t receive code?",
+                        style: TextStyle(fontSize: 17),
+                      ),
+                      SizedBox(width: 20),
+                      Text(
+                        "Resend Again.",
+                        style: TextStyle(fontSize: 17, color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Center(
+                  child: Text(
+                    "By Signing up you agree to our Terms Conditions & Privacy Policy.",
+                    style: TextStyle(fontSize: 17),
                     textAlign: TextAlign.center,
                   ),
-                  if (widget.otp != null) ...[
-                    const SizedBox(height: 10),
-                    Text(
-                      'Auto OTP: ${widget.otp}',
-                      style: const TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
-                  ],
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: List.generate(6, (index) {
-                      return SizedBox(
-                        width: 40,
-                        child: TextField(
-                          controller: otpControllers[index],
-                          focusNode: focusNodes[index],
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          maxLength: 1,
-                          decoration: const InputDecoration(
-                            counterText: '',
-                            border: OutlineInputBorder(),
-                          ),
-                          onChanged: (value) {
-                            if (value.isNotEmpty && index < 5) {
-                              FocusScope.of(context)
-                                  .requestFocus(focusNodes[index + 1]);
-                            } else if (value.isEmpty && index > 0) {
-                              FocusScope.of(context)
-                                  .requestFocus(focusNodes[index - 1]);
-                            }
-                          },
-                        ),
-                      );
-                    }),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomButton(
-                    onPressed: _verifyOtp,
-                    text: 'Verify OTP',
-                  ),
-                  const SizedBox(height: 30),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 40),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Didn’t receive code?",
-                          style: TextStyle(fontSize: 17),
-                        ),
-                        SizedBox(width: 20),
-                        Text(
-                          "Resend Again.",
-                          style: TextStyle(fontSize: 17, color: Colors.red),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Center(
-                    child: Text(
-                      "By Signing up you agree to our Terms Conditions & Privacy Policy.",
-                      style: TextStyle(fontSize: 17),
-                      textAlign: TextAlign.center,
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
+          ),
+        );
+      }),
     );
   }
 }

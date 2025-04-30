@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 
-class DioClient{
-  static Dio getDio(){
-    Dio dio=Dio();
-    dio.options.baseUrl="https://meatzo.com/api";
-    dio.options.headers["Content-Type"]="application/json";
-    return dio;
+class DioClient {
+  // Private constructor to prevent instantiation
+  DioClient._();
 
+  static final Dio _dio = Dio()
+    ..options.baseUrl = "https://meatzo.com/api"
+    ..options.headers["Content-Type"] = "application/json";
 
-  }
+  static Dio get dio => _dio; // Public getter to access the Dio instance
 }

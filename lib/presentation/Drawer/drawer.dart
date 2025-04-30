@@ -1,8 +1,10 @@
+import 'package:amir_chikan/screens/AuthScreen/Phone_Auth_page.dart';
 import 'package:amir_chikan/screens/Mycart/Mycard_Sreen.dart';
 import 'package:amir_chikan/screens/Order/orders.dart';
-import 'package:amir_chikan/screens/Profile/profileScreen.dart';
+import 'package:amir_chikan/screens/Order/Profile/profileScreen.dart';
 import 'package:amir_chikan/presentation/Global_widget/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerExample extends StatelessWidget {
   const DrawerExample({super.key});
@@ -67,6 +69,23 @@ class DrawerExample extends StatelessWidget {
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ProfileScreen()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout, color: Colors.white),
+            title: const Text(
+              "Logout",
+              style: TextStyle(color: Colors.white),
+            ),
+            onTap: () async {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.remove("auth_token");
+            
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PhoneAuthScreen()),
+                  (route) => false);
             },
           ),
         ],

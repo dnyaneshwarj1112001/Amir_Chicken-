@@ -1,8 +1,9 @@
 import 'package:amir_chikan/data/repositories/auth_repository.dart';
+import 'package:amir_chikan/features/auth/logic/otp_verification_state.dart';
 
-import 'package:amir_chikan/features/auth/logic/otp_verification_state';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Otpverificationcubit extends Cubit<OtpVerificationState> {
   final AuthRepository authRepository;
@@ -13,6 +14,11 @@ class Otpverificationcubit extends Cubit<OtpVerificationState> {
     try {
       final response = await authRepository.VerifyOtp(PhoneNumber, otp);
       if (!response.hasError) {
+        final token = response.token;
+        
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString("auth_token", token);
+
         emit(OtpVerificationSuccess(response: response));
       } else {
         emit(OtpVerificationFailure(error: "errorMessage));"));

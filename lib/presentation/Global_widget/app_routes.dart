@@ -2,7 +2,7 @@ import 'package:amir_chikan/presentation/Global_widget/bottomNavigationbar.dart'
 import 'package:amir_chikan/screens/Screen/HomeScrens/HomePageScreen.dart';
 import 'package:amir_chikan/screens/Mycart/Mycard_Sreen.dart';
 import 'package:amir_chikan/screens/Order/orders.dart';
-import 'package:amir_chikan/screens/Profile/profileScreen.dart';
+import 'package:amir_chikan/screens/Order/Profile/profileScreen.dart';
 import 'package:amir_chikan/presentation/Global_widget/SplashScreen.dart';
 import 'package:amir_chikan/screens/shop/ShopDetailsPage.dart';
 import 'package:amir_chikan/screens/shop/productdetailstpage.dart';

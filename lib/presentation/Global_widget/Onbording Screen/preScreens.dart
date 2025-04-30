@@ -17,6 +17,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
   Widget build(BuildContext context) {
     return OnBoardingScreenmodel(
       onSkip: () {
+        
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => PhoneAuthScreen()));
       },

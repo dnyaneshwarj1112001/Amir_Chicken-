@@ -7,12 +7,11 @@ part 'api_client.g.dart';
 
 @RestApi()
 abstract class ApiClient {
-  factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
+  factory ApiClient(Dio dio) = _ApiClient;
 
   @POST("/login")
   Future<AuthResponseModel> login(@Body() Map<String, dynamic> body);
 
   @POST("/verify-otp")
-  Future<VerifyOtpResponse>verifyOtp(@Body()Map<String,dynamic>body);
-
+  Future<VerifyOtpResponse> verifyOtp(@Body() Map<String, dynamic> body);
 }
