@@ -41,7 +41,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
                     phoneNumber: phoneController.text.trim(),
                     otp: state.response.otp.toString(),
                   ),
-                ), 
+                ),
               );
             } else if (state is AuthFailure) {
               ScaffoldMessenger.of(context).showSnackBar(

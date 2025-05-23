@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:amir_chikan/presentation/Global_widget/bottomNavigationbar.dart';
 import 'package:amir_chikan/presentation/Global_widget/gap.dart';
 import 'package:amir_chikan/presentation/Global_widget/Onbording%20Screen/preScreens.dart';
 import 'package:amir_chikan/screens/Screen/HomeScrens/HomePageScreen.dart';
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
       print(token);
       if (token != null && token.isNotEmpty) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomePageScreen()));
+            context, MaterialPageRoute(builder: (context) => NavBar()));
       } else {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => OnbordingScreen()));

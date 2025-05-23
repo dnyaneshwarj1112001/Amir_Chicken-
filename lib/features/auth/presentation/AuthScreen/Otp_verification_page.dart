@@ -1,8 +1,8 @@
 import 'package:amir_chikan/core/network/api_client.dart';
 import 'package:amir_chikan/core/network/dio_client.dart';
 import 'package:amir_chikan/data/repositories/auth_repository.dart';
-import 'package:amir_chikan/features/auth/logic/otp_verification_cubit.dart';
-import 'package:amir_chikan/features/auth/logic/otp_verification_state.dart';
+import 'package:amir_chikan/features/auth/logic/domain/auth/otp_verification_cubit.dart';
+import 'package:amir_chikan/features/auth/logic/domain/auth/otp_verification_state.dart';
 import 'package:amir_chikan/screens/Screen/HomeScrens/HomePageScreen.dart';
 import 'package:amir_chikan/screens/Screen/HomeScrens/homepagedeletedscreen.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +75,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             ),
           );
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const HomePageScreen()));
+              MaterialPageRoute(builder: (context) => HomePageScreen()));
         } else if (state is OtpVerificationFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

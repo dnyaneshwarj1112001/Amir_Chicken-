@@ -1,9 +1,11 @@
 import 'package:amir_chikan/presentation/Global_widget/Appcolor.dart';
 import 'package:amir_chikan/presentation/Global_widget/apptext.dart';
 import 'package:amir_chikan/presentation/Global_widget/gap.dart';
+import 'package:amir_chikan/screens/AuthScreen/Phone_Auth_page.dart';
 import 'package:amir_chikan/screens/Order/Profile/editprofile_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:amir_chikan/presentation/Global_widget/app_routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -62,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: 20),
               // _buildProfileOption(Icons.person, "Edit Profile", () {
               //   Navigator.push(
-              
+
               //       context,
               //       MaterialPageRoute(
               //           builder: (context) => EditprofileScreen()));
@@ -74,7 +76,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               _buildProfileOption(
                   Icons.local_shipping_outlined, "Your Order", () {}),
               _buildProfileOption(Icons.settings, "Account setting", () {}),
-              _buildProfileOption(Icons.logout, "Logout", () {}),
+              _buildProfileOption(Icons.logout, "Logout", () async {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.remove("auth_token");
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PhoneAuthScreen()));
+              }),
             ],
           ),
         ),

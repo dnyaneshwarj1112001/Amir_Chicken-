@@ -1,5 +1,5 @@
 import 'package:amir_chikan/data/repositories/auth_repository.dart';
-import 'package:amir_chikan/features/auth/logic/otp_verification_state.dart';
+import 'package:amir_chikan/features/auth/logic/domain/auth/otp_verification_state.dart';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

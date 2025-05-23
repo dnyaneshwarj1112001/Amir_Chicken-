@@ -21,7 +21,7 @@ class VerifyOtpResponse {
 class User {
   final int id;
   final String? name;
-  final String userType;
+  final String? userType;
   final String? mobileNumber;
   final int userStatus;
   final String profilePhotoUrl;

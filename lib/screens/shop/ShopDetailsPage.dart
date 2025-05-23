@@ -1,6 +1,7 @@
 import 'package:amir_chikan/presentation/Global_widget/apptext.dart';
 import 'package:amir_chikan/presentation/Global_widget/dummyimages.dart';
 import 'package:amir_chikan/presentation/Global_widget/serchbar.dart';
+import 'package:amir_chikan/screens/Screen/HomeScrens/serchbar.dart';
 import 'package:amir_chikan/screens/shop/shopwiseprodectlineerlistpage.dart';
 import 'package:flutter/material.dart';
 import 'package:amir_chikan/presentation/Global_widget/Appcolor.dart';
@@ -33,7 +34,12 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Shop Details"),
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: Apptext(
+          text: "Shop Details",
+          color: Colors.white,
+          size: 20,
+        ),
         centerTitle: true,
         backgroundColor: Colors.redAccent,
         elevation: 4,
@@ -117,15 +123,8 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
               fontWeight: FontWeight.bold,
             ),
             const Gaph(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 10),
-              child: CustomSearchBar(
-                hintText: "Search for products",
-                onChanged: (value) {
-                  print(value);
-                },
-              ),
-            ),
+            SearchBar1(),
+
             Gaph(height: 10),
             shopwiseproductlineerlist(
                 text: DummyData.shopNames, images: DummyData.images),

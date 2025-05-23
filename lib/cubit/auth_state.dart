@@ -1,5 +1,5 @@
 
-import 'package:amir_chikan/data/models/auth_response_model.dart';
+import 'package:amir_chikan/data/models/authresponcemodel/auth_response_model.dart';
 
 abstract class AuthState {}
 

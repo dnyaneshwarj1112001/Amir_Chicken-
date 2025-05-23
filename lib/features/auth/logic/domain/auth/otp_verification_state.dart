@@ -1,4 +1,4 @@
-import 'package:amir_chikan/data/models/verify_Otp_ResponseModel.dart';
+import 'package:amir_chikan/data/models/authresponcemodel/verify_Otp_ResponseModel.dart';
 import 'package:equatable/equatable.dart';
 
 /// Base state class

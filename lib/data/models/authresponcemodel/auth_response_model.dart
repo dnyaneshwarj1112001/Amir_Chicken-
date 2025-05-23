@@ -13,7 +13,6 @@ class AuthResponseModel {
     this.otp,
     required this.hasError,
   });
- 
 
   factory AuthResponseModel.fromJson(Map<String, dynamic> json) =>
       _$AuthResponseModelFromJson(json);

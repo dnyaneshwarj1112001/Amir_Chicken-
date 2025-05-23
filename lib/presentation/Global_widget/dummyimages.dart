@@ -7,16 +7,29 @@ class DummyData {
     "lib/innitiel_screens/images/shop7.png",
     "lib/innitiel_screens/images/shop9.png",
     "lib/innitiel_screens/images/shop10.png",
+    "lib/innitiel_screens/images/shop10.png",
+
   ];
 
   static List<String> shopNames = [
-    "Fresh Meat Bazaar",
-    "Royal Mutton House",
-    "Zaika Chicken Corner",
-    "Tandoori Meat Hub",
+    'Chicken Boneless',
+    'Fish',
+    'Mutton',
+    'Tandoori Chicken',
     "Mughlai Meat Shop",
     "Meat Masters",
     "The Butcher’s Choice",
     "Prime Cuts Meat Store",
+  ];
+
+  static List<String> pincodes = [
+    "411001",
+    "411002",
+    "411003",
+    "411004",
+    "411005",
+    "411006",
+    "411007",
+    "411008",
   ];
 }
