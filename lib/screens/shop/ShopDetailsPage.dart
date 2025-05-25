@@ -11,14 +11,19 @@ class ShopDetailsPage extends StatefulWidget {
   final String text;
   final String images;
   final VoidCallback? onPressed;
+  final String openAt;
+  final String closedAt;
+  final String Diliveryin;
 
   const ShopDetailsPage({
     super.key,
     required this.text,
     required this.images,
     this.onPressed,
+    this.openAt = "09:00 AM",
+    this.closedAt = "09:00 PM",
+    this.Diliveryin = "30-40 Mins",
   });
-
   @override
   State<ShopDetailsPage> createState() => _ShopDetailsPageState();
 }
@@ -90,8 +95,9 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: [
-                        detailRow(Icons.access_time, "Opens At: ", "8:00 AM"),
-                        detailRow(Icons.store, "Closes At: ", "11:00 PM"),
+                        detailRow(
+                            Icons.access_time, "Opens At: ", widget.openAt),
+                        detailRow(Icons.store, "Closes At: ", widget.closedAt),
                         detailRow(Icons.delivery_dining, "Delivery In: ",
                             "30-40 Mins"),
                         ratingRow(4.5), // Example rating

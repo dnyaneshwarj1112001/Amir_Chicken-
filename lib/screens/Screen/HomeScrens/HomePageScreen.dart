@@ -49,7 +49,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       final data = jsonDecode(response.body);
       final banners = data['banners'];
       final Categoriesdata = data["categories"];
-      final shoplistdata = data['shops'];
+      final shoplistdata = data['shops']['data'];
       setState(() {
         BannerList = banners;
         categories = Categoriesdata;
@@ -93,6 +93,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(shoplist);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -256,6 +257,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => AllShopsGridPage(
+                    shops: shoplist,
+
                             pincode: DummyData.pincodes,
                             text: DummyData.shopNames,
                             images: DummyData.images,
@@ -277,10 +280,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ),
                   ),
                   ShopsNearyou(
-                    text: DummyData.shopNames,
-                    Subtitle: DummyData.shopNames,
                     images: DummyData.images,
-                    time: "30-40 Mins ",
+                    shops: shoplist,
                   ),
                   const SizedBox(height: 20),
                 ],

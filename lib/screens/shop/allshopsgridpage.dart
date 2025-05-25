@@ -8,6 +8,7 @@ class AllShopsGridPage extends StatefulWidget {
   final List<String> images;
   final List<String> subtitle;
   final List<String> pincode;
+  final List<dynamic> shops;
   final String time;
 
   const AllShopsGridPage({
@@ -17,6 +18,7 @@ class AllShopsGridPage extends StatefulWidget {
     required this.subtitle,
     required this.pincode,
     required this.time,
+    required this.shops,
   }) : super(key: key);
 
   @override
@@ -56,7 +58,7 @@ class _AllShopsGridPageState extends State<AllShopsGridPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ShopDetailsPage(
-                      text: widget.text[index],
+                      text: widget.shops[index],
                       images: widget.images[index],
                     ),
                   ),
@@ -154,7 +156,7 @@ class _AllShopsGridPageState extends State<AllShopsGridPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                widget.subtitle[index],
+                                widget.shops[index]['name'],
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -166,7 +168,7 @@ class _AllShopsGridPageState extends State<AllShopsGridPage> {
                                       size: 16, color: Colors.grey),
                                   const SizedBox(width: 4),
                                   Text(
-                                    widget.pincode[index],
+                                    widget.shops[index]['pincode'],
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 13,
@@ -179,7 +181,7 @@ class _AllShopsGridPageState extends State<AllShopsGridPage> {
                             ],
                           ),
                           const SizedBox(height: 12),
-                          Text("21 Harmony  Near Greenview    1.8 Km")
+                          Text(widget.shops[index]['address'])
                         ],
                       ),
                     )

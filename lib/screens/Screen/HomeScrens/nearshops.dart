@@ -1,38 +1,24 @@
+import 'package:amir_chikan/helper/util.dart';
+import 'package:flutter/material.dart';
 import 'package:amir_chikan/presentation/Global_widget/Appcolor.dart';
 import 'package:amir_chikan/presentation/Global_widget/apptext.dart';
-
-import 'package:amir_chikan/presentation/Global_widget/dummyimages.dart';
 import 'package:amir_chikan/screens/shop/ShopDetailsPage.dart';
-import 'package:amir_chikan/screens/shop/productdetailstpage.dart';
-import 'package:flutter/material.dart';
 
 class ShopsNearyou extends StatefulWidget {
-  final List<String> text;
+  final List<dynamic> shops;
+  // final List<String> text;
   final List<String> images;
-  final VoidCallback? onPressed;
-  final List<String> Subtitle;
+
   final String time;
   final int pincode;
 
   const ShopsNearyou({
     super.key,
-    required this.text,
-    this.time = "30-40 Mins",
+    required this.shops,
+    // required this.text,
     required this.images,
-    this.Subtitle = const [
-      "Chikan",
-      "Chikan",
-      "Chikan",
-      "Chikan",
-      "Chikan",
-      "Chikan",
-      "Chikan",
-      "Chikan",
-      "Chikan",
-      "Chikan"
-    ],
+    this.time = "30-40 Mins",
     this.pincode = 415524,
-    this.onPressed,
   });
 
   @override
@@ -41,6 +27,13 @@ class ShopsNearyou extends StatefulWidget {
 
 class _ShopsNearyouState extends State<ShopsNearyou> {
   @override
+  void initState() {
+    super.initState();
+
+    print("Shop List: ${widget.shops}");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 240,
@@ -48,9 +41,10 @@ class _ShopsNearyouState extends State<ShopsNearyou> {
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.only(right: 10),
         itemExtent: 160,
-        itemCount: widget.images.length,
+        itemCount: widget.shops.length,
         itemBuilder: (context, index) {
           return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
@@ -62,15 +56,17 @@ class _ShopsNearyouState extends State<ShopsNearyou> {
                 ),
               ],
             ),
-            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
             child: InkWell(
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ShopDetailsPage(
-                      text: widget.text[index],
+                      text: widget.shops[index]['name'],
                       images: widget.images[index],
+                      Diliveryin: widget.shops[index]['opens_at'],
+                      closedAt: widget.shops[index]['closes_at'],
+                      openAt: widget.shops[index]['opens_at'],
                     ),
                   ),
                 );
@@ -90,8 +86,8 @@ class _ShopsNearyouState extends State<ShopsNearyou> {
                       ),
                       child: AspectRatio(
                         aspectRatio: 1.5,
-                        child: Image.asset(
-                          widget.images[index],
+                        child: Image.network(
+                          widget.shops[index]['image'],
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
                             return Container(
@@ -112,7 +108,7 @@ class _ShopsNearyouState extends State<ShopsNearyou> {
                       child: Column(
                         children: [
                           Apptext(
-                            text: widget.Subtitle[index],
+                            text: widget.shops[index]['name'],
                             fontWeight: FontWeight.bold,
                             size: 12,
                           ),
@@ -120,12 +116,12 @@ class _ShopsNearyouState extends State<ShopsNearyou> {
                           Row(
                             children: [
                               Apptext(
-                                text: "Deliver At: ",
+                                text: "Opens At: ",
                                 fontWeight: FontWeight.bold,
                                 size: 12,
                               ),
                               Apptext(
-                                text: widget.time,
+                                text: widget.shops[index]['opens_at'],
                                 size: 10,
                               ),
                             ],
@@ -137,7 +133,7 @@ class _ShopsNearyouState extends State<ShopsNearyou> {
                               const Icon(Icons.location_on,
                                   size: 14, color: Colors.red),
                               Text(
-                                " ${widget.pincode}", // Displaying the passed pincode dynamically
+                                " ${widget.shops[index]['pincode']}",
                                 style: TextStyle(
                                     color: Colors.grey[700], fontSize: 12),
                               ),
@@ -157,32 +153,35 @@ class _ShopsNearyouState extends State<ShopsNearyou> {
                           bottomRight: Radius.circular(12),
                         ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ShopDetailsPage(
-                                    text: widget.text[index],
-                                    images: widget.images[index],
-                                  ),
-                                ),
-                              );
-                            },
-                            child: const Text(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ShopDetailsPage(
+                                text: widget.shops[index]['name'],
+                                images: widget.images[index],
+                                Diliveryin: widget.shops[index]['opens_at'],
+                                closedAt: widget.shops[index]['closes_at'],
+                                openAt: widget.shops[index]['opens_at'],
+                              ),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
                               "Shop Now",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          const Icon(Icons.shopping_cart, color: Colors.white),
-                        ],
+                            SizedBox(width: 10),
+                            Icon(Icons.shopping_cart, color: Colors.white),
+                          ],
+                        ),
                       ),
                     ),
                   ],
