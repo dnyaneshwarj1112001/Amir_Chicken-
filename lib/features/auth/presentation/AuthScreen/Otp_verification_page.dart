@@ -3,7 +3,7 @@ import 'package:amir_chikan/core/network/dio_client.dart';
 import 'package:amir_chikan/data/repositories/auth_repository.dart';
 import 'package:amir_chikan/features/auth/logic/domain/auth/otp_verification_cubit.dart';
 import 'package:amir_chikan/features/auth/logic/domain/auth/otp_verification_state.dart';
-import 'package:amir_chikan/screens/Screen/HomeScrens/HomePageScreen.dart';
+import 'package:amir_chikan/screens/Screen/HomeScrens/home_page_screen.dart';
 import 'package:amir_chikan/screens/Screen/HomeScrens/homepagedeletedscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:amir_chikan/screens/AuthScreen/custome_Next_button.dart';

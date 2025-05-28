@@ -1,5 +1,5 @@
 import 'package:amir_chikan/screens/AuthScreen/Phone_Auth_page.dart';
-import 'package:amir_chikan/screens/Screen/HomeScrens/HomePageScreen.dart';
+import 'package:amir_chikan/screens/Screen/HomeScrens/home_page_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:onboarding_intro_screen/onboarding_screen.dart';
 

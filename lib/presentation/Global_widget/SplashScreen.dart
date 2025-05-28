@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:amir_chikan/presentation/Global_widget/bottomNavigationbar.dart';
 import 'package:amir_chikan/presentation/Global_widget/gap.dart';
 import 'package:amir_chikan/presentation/Global_widget/Onbording%20Screen/preScreens.dart';
-import 'package:amir_chikan/screens/Screen/HomeScrens/HomePageScreen.dart';
+import 'package:amir_chikan/screens/Screen/HomeScrens/home_page_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

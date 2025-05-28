@@ -17,7 +17,7 @@ import 'package:amir_chikan/presentation/Global_widget/apptext.dart';
 import 'package:amir_chikan/presentation/Global_widget/dummyimages.dart';
 import 'package:amir_chikan/presentation/Global_widget/gap.dart';
 import 'package:amir_chikan/presentation/Drawer/drawer.dart';
-import 'package:amir_chikan/screens/Screen/HomeScrens/nearshops.dart';
+import 'package:amir_chikan/screens/Screen/HomeScrens/near_shops.dart';
 import 'package:amir_chikan/screens/Screen/HomeScrens/shopsListHorizontal.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -50,10 +50,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
       final banners = data['banners'];
       final Categoriesdata = data["categories"];
       final shoplistdata = data['shops']['data'];
+      Util.pretty(shoplistdata);
       setState(() {
         BannerList = banners;
         categories = Categoriesdata;
         shoplist = shoplistdata;
+
         isLoding = false;
       });
     } else {
@@ -257,8 +259,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => AllShopsGridPage(
-                    shops: shoplist,
-
+                            shops: shoplist,
                             pincode: DummyData.pincodes,
                             text: DummyData.shopNames,
                             images: DummyData.images,
@@ -280,7 +281,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ),
                   ),
                   ShopsNearyou(
-                    images: DummyData.images,
                     shops: shoplist,
                   ),
                   const SizedBox(height: 20),

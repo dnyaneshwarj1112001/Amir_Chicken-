@@ -1,38 +1,72 @@
+import 'dart:convert';
+
+import 'package:amir_chikan/helper/util.dart';
 import 'package:amir_chikan/presentation/Global_widget/apptext.dart';
 import 'package:amir_chikan/presentation/Global_widget/dummyimages.dart';
-import 'package:amir_chikan/presentation/Global_widget/serchbar.dart';
 import 'package:amir_chikan/screens/Screen/HomeScrens/serchbar.dart';
 import 'package:amir_chikan/screens/shop/shopwiseprodectlineerlistpage.dart';
 import 'package:flutter/material.dart';
 import 'package:amir_chikan/presentation/Global_widget/Appcolor.dart';
 import 'package:amir_chikan/presentation/Global_widget/gap.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class ShopDetailsPage extends StatefulWidget {
+  final String shopId;
   final String text;
   final String images;
   final VoidCallback? onPressed;
   final String openAt;
   final String closedAt;
-  final String Diliveryin;
+  final String deliveryIn;
 
   const ShopDetailsPage({
     super.key,
+    required this.shopId,
     required this.text,
     required this.images,
     this.onPressed,
     this.openAt = "09:00 AM",
     this.closedAt = "09:00 PM",
-    this.Diliveryin = "30-40 Mins",
+    this.deliveryIn = "30-40 Mins",
   });
   @override
   State<ShopDetailsPage> createState() => _ShopDetailsPageState();
 }
 
 class _ShopDetailsPageState extends State<ShopDetailsPage> {
+  List<dynamic> productList = [];
   @override
   void initState() {
     super.initState();
-    print(widget.text);
+    getproductdata();
+  }
+
+  Future<void> getproductdata() async {
+    final baseurl = "https://meatzo.com/api/shop/details/${widget.shopId}";
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("auth_token");
+
+    final response = await http.get(Uri.parse(baseurl), headers: {
+      'Authorization': "Bearer $token",
+      'Accept': 'application/json',
+    });
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+
+      final productdata = data['products'];
+      // Util.pretty(productdata);
+
+      print(productdata);
+
+      setState(() {
+        productList = productdata;
+      });
+    } else {
+      print(
+          "Failed to fetch shop details. Status code: ${response.statusCode}");
+    }
   }
 
   @override
@@ -40,7 +74,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
-        title: Apptext(
+        title: const Apptext(
           text: "Shop Details",
           color: Colors.white,
           size: 20,
@@ -78,13 +112,13 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
-                          child: Image.asset(
+                          child: Image.network(
                             widget.images,
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      Gaph(height: 10),
+                      const Gaph(height: 10),
                       Apptext(
                         text: widget.text,
                         fontWeight: FontWeight.bold,
@@ -103,7 +137,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
                         ratingRow(4.5), // Example rating
 
                         Chip(
-                          label: Row(
+                          label: const Row(
                             children: [
                               Icon(Icons.directions, color: Colors.white),
                               Apptext(
@@ -131,9 +165,10 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
             const Gaph(height: 20),
             SearchBar1(),
 
-            Gaph(height: 10),
-            shopwiseproductlineerlist(
-                text: DummyData.shopNames, images: DummyData.images),
+            const Gaph(height: 10),
+            ShopwiseProductLinearList(
+              productList: productList,
+            ),
           ],
         ),
       ),

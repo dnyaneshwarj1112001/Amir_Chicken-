@@ -44,7 +44,16 @@ class _MyCardScreenState extends State<MyCardScreen> {
         return true;
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text("My Card")),
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.white),
+          title: const Apptext(
+            text: 'Add To Card',
+            color: Colors.white,
+            size: 22,
+          ),
+          backgroundColor: Appcolor.primaryRed,
+          centerTitle: true,
+        ),
         body: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: Container(

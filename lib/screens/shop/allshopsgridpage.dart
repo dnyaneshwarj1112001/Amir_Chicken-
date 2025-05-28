@@ -31,7 +31,7 @@ class _AllShopsGridPageState extends State<AllShopsGridPage> {
   @override
   void initState() {
     super.initState();
-    isFavorite = List.generate(widget.text.length, (index) => false);
+    isFavorite = List.generate(widget.shops.length, (index) => false);
   }
 
   @override
@@ -50,18 +50,21 @@ class _AllShopsGridPageState extends State<AllShopsGridPage> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: ListView.builder(
-          itemCount: widget.text.length,
+          itemCount: widget.shops.length,
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ShopDetailsPage(
-                      text: widget.shops[index],
-                      images: widget.images[index],
-                    ),
-                  ),
+                      builder: (context) => ShopDetailsPage(
+                            text: widget.shops[index]['name'],
+                            shopId: widget.shops[index]['id'].toString(),
+                            images: widget.shops[index]['image'],
+                            deliveryIn: widget.shops[index]['opens_at'],
+                            closedAt: widget.shops[index]['closes_at'],
+                            openAt: widget.shops[index]['opens_at'],
+                          )),
                 );
               },
               child: Container(
@@ -88,8 +91,8 @@ class _AllShopsGridPageState extends State<AllShopsGridPage> {
                           ),
                           child: AspectRatio(
                             aspectRatio: 16 / 9,
-                            child: Image.asset(
-                              widget.images[index],
+                            child: Image.network(
+                              widget.shops[index]['image'],
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 return Container(

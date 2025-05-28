@@ -6,8 +6,6 @@ import 'package:amir_chikan/screens/shop/ShopDetailsPage.dart';
 
 class ShopsNearyou extends StatefulWidget {
   final List<dynamic> shops;
-  // final List<String> text;
-  final List<String> images;
 
   final String time;
   final int pincode;
@@ -16,7 +14,7 @@ class ShopsNearyou extends StatefulWidget {
     super.key,
     required this.shops,
     // required this.text,
-    required this.images,
+
     this.time = "30-40 Mins",
     this.pincode = 415524,
   });
@@ -63,8 +61,9 @@ class _ShopsNearyouState extends State<ShopsNearyou> {
                   MaterialPageRoute(
                     builder: (context) => ShopDetailsPage(
                       text: widget.shops[index]['name'],
-                      images: widget.images[index],
-                      Diliveryin: widget.shops[index]['opens_at'],
+                      shopId: widget.shops[index]['id'].toString(),
+                      images: widget.shops[index]['image'],
+                      deliveryIn: widget.shops[index]['opens_at'],
                       closedAt: widget.shops[index]['closes_at'],
                       openAt: widget.shops[index]['opens_at'],
                     ),
@@ -155,18 +154,18 @@ class _ShopsNearyouState extends State<ShopsNearyou> {
                       ),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ShopDetailsPage(
-                                text: widget.shops[index]['name'],
-                                images: widget.images[index],
-                                Diliveryin: widget.shops[index]['opens_at'],
-                                closedAt: widget.shops[index]['closes_at'],
-                                openAt: widget.shops[index]['opens_at'],
-                              ),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => ShopDetailsPage(
+                          //       text: widget.shops[index]['name'],
+                          //       images: widget.images[index],
+                          //       deliveryIn: widget.shops[index]['opens_at'],
+                          //       closedAt: widget.shops[index]['closes_at'],
+                          //       openAt: widget.shops[index]['opens_at'],
+                          //     ),
+                          //   ),
+                          // );
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
