@@ -2,7 +2,6 @@ import 'package:amir_chikan/core/network/api_client.dart';
 import 'package:amir_chikan/core/network/dio_client.dart';
 import 'package:amir_chikan/data/repositories/auth_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dio/dio.dart';
 
 import 'auth_state.dart';
 

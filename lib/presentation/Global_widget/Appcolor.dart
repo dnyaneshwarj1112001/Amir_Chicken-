@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
 class Appcolor {
-  static  Color primaryRed =Colors. redAccent;
+  static  Color primaryRed =const Color.fromRGBO(255, 82, 82, 1);
 }

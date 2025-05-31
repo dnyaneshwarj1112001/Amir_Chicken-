@@ -13,9 +13,10 @@ class Otpverificationcubit extends Cubit<OtpVerificationState> {
     emit(OtpVerificationLoading());
     try {
       final response = await authRepository.VerifyOtp(PhoneNumber, otp);
+      print(response);
       if (!response.hasError) {
         final token = response.token;
-        
+        print(token);
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString("auth_token", token);
 

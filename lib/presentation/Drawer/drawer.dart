@@ -1,6 +1,6 @@
 import 'package:amir_chikan/screens/AuthScreen/Phone_Auth_page.dart';
-import 'package:amir_chikan/screens/Mycart/Mycard_Sreen.dart';
-import 'package:amir_chikan/screens/Order/orders.dart';
+import 'package:amir_chikan/screens/Mycart/Screens/Mycard_Sreen.dart';
+import 'package:amir_chikan/screens/Order/OrderRecipt1.dart';
 import 'package:amir_chikan/screens/Order/Profile/profileScreen.dart';
 import 'package:amir_chikan/presentation/Global_widget/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class DrawerExample extends StatelessWidget {
             ),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Ordersscreen()));
+                  MaterialPageRoute(builder: (context) => OrderRecipt()));
             },
           ),
           ListTile(
@@ -57,7 +57,7 @@ class DrawerExample extends StatelessWidget {
             ),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Ordersscreen()));
+                  MaterialPageRoute(builder: (context) => OrderRecipt()));
             },
           ),
           ListTile(
@@ -80,7 +80,7 @@ class DrawerExample extends StatelessWidget {
             onTap: () async {
               final prefs = await SharedPreferences.getInstance();
               await prefs.remove("auth_token");
-            
+
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(

@@ -70,7 +70,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showPincodeBottomSheet();
+      // _showPincodeBottomSheet();
       gethomepageData();
     });
   }

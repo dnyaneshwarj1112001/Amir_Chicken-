@@ -1,9 +1,9 @@
-import 'package:amir_chikan/screens/shop/Addtocartservice.dart';
+import 'package:amir_chikan/screens/Mycart/Screens/Addtocartservice.dart';
 import 'package:flutter/material.dart';
 import 'package:amir_chikan/helper/util.dart';
 import 'package:amir_chikan/presentation/Global_widget/gap.dart';
 import 'package:amir_chikan/presentation/Global_widget/Appcolor.dart';
-import 'package:amir_chikan/screens/Mycart/Mycard_Sreen.dart';
+import 'package:amir_chikan/screens/Mycart/Screens/Mycard_Sreen.dart';
 
 class ShopwiseProductLinearList extends StatefulWidget {
   final List<dynamic> productList;
@@ -20,7 +20,7 @@ class ShopwiseProductLinearList extends StatefulWidget {
 
 class _ShopwiseProductLinearListState extends State<ShopwiseProductLinearList> {
   final Map<int, int> selectedSizeIndex = {};
-  final String baseImageUrl = "https://meatzo.com/uploads/";
+  final String baseImageUrl = "https://meatzo.com/uploads/main_img/";
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +32,12 @@ class _ShopwiseProductLinearListState extends State<ShopwiseProductLinearList> {
         itemCount: widget.productList.length,
         itemBuilder: (context, index) {
           final product = widget.productList[index];
+          // Util.pretty(product);
           final List prices = product['prices'] ?? [];
           final productId = product['tbl_product_id'] ?? product['product_id'];
+          final shopId = product['shop'];
 
-          Util.pretty(prices);
+          // Util.pretty(prices);
 
           if (prices.isEmpty) return const SizedBox();
 
@@ -43,9 +45,9 @@ class _ShopwiseProductLinearListState extends State<ShopwiseProductLinearList> {
           final selectedPrice = prices[selectedSizeIndex[index]!];
 
           final imageUrl = product['main_img'];
-          final completeUrl = imageUrl != null && imageUrl.isNotEmpty
-              ? '$baseImageUrl$imageUrl'
-              : '';
+          final completeUrl = '$baseImageUrl$imageUrl';
+
+          Util.pretty(completeUrl);
 
           return Container(
             width: 180,
@@ -194,7 +196,6 @@ class _ShopwiseProductLinearListState extends State<ShopwiseProductLinearList> {
 
                 const Spacer(),
 
-                // Add to Cart Button
                 InkWell(
                   onTap: () async {
                     final priceId = selectedPrice['price_id'];
@@ -202,20 +203,21 @@ class _ShopwiseProductLinearListState extends State<ShopwiseProductLinearList> {
                     print('Product ID: $productId');
                     print('Price ID: $priceId');
 
-                    final success = await CartService.addToCartHttp(
+                    final result = await CartService.addToCartHttp(
                       productId: productId.toString(),
                       priceId: priceId.toString(),
+                      shopId: shopId.toString(),
                     );
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Center(
-                          child: Text(success
-                              ? "Added to Cart"
-                              : "Failed to add to cart"),
+                        content: Text(
+                          result['message'],
+                          textAlign: TextAlign.center,
                         ),
                         behavior: SnackBarBehavior.floating,
-                        backgroundColor: success ? Colors.green : Colors.red,
+                        backgroundColor:
+                            result['success'] ? Colors.green : Colors.red,
                       ),
                     );
                   },
@@ -246,7 +248,7 @@ class _ShopwiseProductLinearListState extends State<ShopwiseProductLinearList> {
                       ],
                     ),
                   ),
-                ),
+                )
               ],
             ),
           );

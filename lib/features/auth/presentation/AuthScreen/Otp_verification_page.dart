@@ -3,8 +3,9 @@ import 'package:amir_chikan/core/network/dio_client.dart';
 import 'package:amir_chikan/data/repositories/auth_repository.dart';
 import 'package:amir_chikan/features/auth/logic/domain/auth/otp_verification_cubit.dart';
 import 'package:amir_chikan/features/auth/logic/domain/auth/otp_verification_state.dart';
+import 'package:amir_chikan/presentation/Global_widget/app_routes.dart';
 import 'package:amir_chikan/screens/Screen/HomeScrens/home_page_screen.dart';
-import 'package:amir_chikan/screens/Screen/HomeScrens/homepagedeletedscreen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:amir_chikan/screens/AuthScreen/custome_Next_button.dart';
 import 'package:flutter/widgets.dart';
@@ -74,8 +75,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               content: Text('Otp verified verified!'),
             ),
           );
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => HomePageScreen()));
+          Navigator.pushReplacementNamed(context, AppRoutes.nav);
         } else if (state is OtpVerificationFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

@@ -113,7 +113,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Image.network(
-                            widget.images,
+                           widget.images,
                             fit: BoxFit.cover,
                           ),
                         ),

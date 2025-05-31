@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:amir_chikan/screens/Screen/HomeScrens/home_page_screen.dart';
-import 'package:amir_chikan/screens/Mycart/Mycard_Sreen.dart';
+import 'package:amir_chikan/screens/Mycart/Screens/Mycard_Sreen.dart';
 import 'package:amir_chikan/screens/Order/OrderdetailsScreen.dart';
 import 'package:amir_chikan/screens/Order/Profile/profileScreen.dart';
 

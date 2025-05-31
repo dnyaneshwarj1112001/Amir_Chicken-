@@ -154,18 +154,19 @@ class _ShopsNearyouState extends State<ShopsNearyou> {
                       ),
                       child: InkWell(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => ShopDetailsPage(
-                          //       text: widget.shops[index]['name'],
-                          //       images: widget.images[index],
-                          //       deliveryIn: widget.shops[index]['opens_at'],
-                          //       closedAt: widget.shops[index]['closes_at'],
-                          //       openAt: widget.shops[index]['opens_at'],
-                          //     ),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ShopDetailsPage(
+                                text: widget.shops[index]['name'],
+                                shopId: widget.shops[index]['id'].toString(),
+                                images: widget.shops[index]['image'],
+                                deliveryIn: widget.shops[index]['opens_at'],
+                                closedAt: widget.shops[index]['closes_at'],
+                                openAt: widget.shops[index]['opens_at'],
+                              ),
+                            ),
+                          );
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
